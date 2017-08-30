@@ -1,0 +1,42 @@
+{
+  "name": "redprint",
+  "version": "0.0.0",
+  "description": "    ",
+  "author": "Gloorx <glrx.vloq@gamil.com>",
+  "license": "MIT",
+  "keywords": [
+
+  ],
+  "bugs": {
+    "url": "https://github.com/gloorx/redprint/issues"
+  },
+  "homepage": "https://github.com/gloorx/redprint",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gloorx/redprint.git"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "tsc",
+    "prepublish": "tsc"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^4.0.1",
+    "@types/jest": "^20.0.8",
+    "@types/lodash": "^4.14.74",
+    "@types/mock-fs": "^3.6.30",
+    "@types/node": "^8.0.26",
+    "jest": "^20.0.4",
+    "mock-fs": "^4.4.1",
+    "ts-jest": "^20.0.13",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.7.0",
+    "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.1",
+    "lodash": "^4.17.4"
+  }
+}

@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/redprint
+    docker:
+      - image: circleci/node:8.4.0
+    steps:
+      # Copy source
+      - checkout
+
+      # Install Dependencies
+      - restore_cache:
+          key: redprint-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: System information
+          command: |
+            echo "Node $(node -v)"
+            echo "Yarn v$(yarn --version)"
+      - run:
+          name: Install dependencies
+          command: yarn
+      - save_cache:
+          key: redprint-dependencies-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+            - ~/.cache/yarn
+
+      # Build
+      - run:
+          name: Test
+          command: yarn test
+      - run:
+          name: Build
+          command: yarn build

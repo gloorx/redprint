@@ -1,0 +1,8 @@
+src
+tsconfig.json
+tslint.json
+jest.config.js
+
+.coverage
+.circleci
+yarn-error.log
