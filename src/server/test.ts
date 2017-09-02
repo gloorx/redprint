@@ -74,10 +74,20 @@ describe('[ debug() ]', () => {
     expect(() => { debug(redprint); }).toThrowError('Validation must be convertable to function');
   });
 
+  it('throws an Error if some validation has two or more arguments', () => {
+    const redprint: any = {
+      Model: {
+        property: '() => true'
+      }
+    };
+
+    expect(() => { debug(redprint); }).toThrowError('Validation must have a single argument');
+  });
+
   it('throws an Error if some validations do not return boolean type', () => {
     const redprint: any = {
       Model: {
-        property: "() => 'Hello!'"
+        property: "(i) => 'Hello!'"
       }
     };
 
@@ -88,7 +98,7 @@ describe('[ debug() ]', () => {
   it('does not throw an Error', () => {
     const redprint: any = {
       Model: {
-        property: '() => true'
+        property: '(i) => true'
       }
     };
 
