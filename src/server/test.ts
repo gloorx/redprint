@@ -135,9 +135,9 @@ describe('[ store() ]', () => {
 
   it('adds a model if not exist', () => {
     mock({
-      'redprint.json': JSON.stringify(toRedprint({
+      'redprint.json': JSON.stringify({
         Model1: {}
-      }))
+      })
     });
     const redprint = {
       Model2: {}
