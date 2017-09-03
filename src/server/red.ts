@@ -4,9 +4,9 @@ import { store } from './store';
 
 import { Convertable } from '../Redprint';
 
-export const red = (convertable: Convertable) => {
+export const red = (convertable: Convertable, filename?: string) => {
   const redprint = toRedprint(convertable);
   debug(redprint);
-  store(redprint);
+  store(redprint, filename);
   return convertable;
 };

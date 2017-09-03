@@ -189,5 +189,22 @@ describe('[ red() ]', () => {
     const input = {};
 
     expect(red(input)).toEqual(input);
-  })
+  });
+
+  it('stores redprint at redprint.json', () => {
+    mock();
+    const input = {};
+
+    red(input);
+    const data = fs.readJsonSync(path.join(process.cwd(), 'redprint.json'));
+    expect(data).toEqual({});
+  });
+
+  it('stores redprint at custom location if filename input is exist', () => {
+    mock();
+    const input = {};
+    red(input, 'hello.json');
+    const data = fs.readJsonSync(path.join(process.cwd(), 'hello.json'));
+    expect(data).toEqual({});
+  });
 });
