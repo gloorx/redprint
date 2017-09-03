@@ -10,6 +10,7 @@ describe('[ load() ]', () => {
     mock.restore();
   });
 
+
   it('throws an Error if redprint file does not exist', () => {
     mock();
 
@@ -25,11 +26,17 @@ describe('[ validate() ]', () => {
     mock.restore();
   });
 
-  it('throws an Error if validation is not a string', () => {
+
+  it('throws an Error if key is invalid', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          username: '(input) => true'
+          property1: {
+            validation: 'input => true'
+          },
+          property2: {
+            validation: 'input => false'
+          }
         }
       })
     });
@@ -38,16 +45,43 @@ describe('[ validate() ]', () => {
     expect(() => { validate('Model', input); }).toThrowError('Invalid key');
   });
 
-  it('returns boolean', () => {
+
+  it('throws. an Error if input cannot pass some validation', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          username: '(input) => true'
+          property1: {
+            validation: 'input => true'
+          },
+          property2: {
+            validation: 'input => false'
+          }
         }
       })
     });
 
     const input = 'hello';
-    expect(typeof validate('Model.username', input)).toEqual('boolean');
+    expect(() => { validate('Model.property2', input); }).toThrowError(
+      "Model.property2 cannot pass to validate 'validation'"
+    );
+  });
+
+
+  it('returns boolean', () => {
+    mock({
+      'redprint.json': JSON.stringify({
+        Model: {
+          property1: {
+            validation: 'input => true'
+          },
+          property2: {
+            validation: 'input => false'
+          }
+        }
+      })
+    });
+
+    const input = 'hello';
+    expect(validate('Model.property1', input)).toBeTruthy();
   });
 });

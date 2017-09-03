@@ -8,29 +8,35 @@ export const debug = (redprint: Redprint) => {
   if (typeof redprint !== 'object')
     throw new Error('Redprint must be an object');
 
-  _.map(redprint, model => {
+  _.each(redprint, model => {
     // verify model type
     if (typeof model !== 'object')
       throw new Error('Model must be an object');
 
-    _.map(model, validation => {
-      // verify validation type
-      if (typeof validation !== 'string')
-        throw new Error('Validation must be a string');
+    _.each(model, property => {
+      // verify property type
+      if (typeof property !== 'object')
+        throw new Error('Property must be an object');
 
-      // verify validation is convertable to function
-      try {
-        if (typeof eval(validation) !== 'function') throw new Error;
-      } catch (err) {
-        throw new Error('Validation must be convertable to function');
-      }
+      _.each(property, validation => {
+        // verify validation type
+        if (typeof validation !== 'string')
+          throw new Error('Validation must be a string');
 
-      if (eval(validation).length !== 1)
-        throw new Error('Validation must have a single argument');
+        // verify validation is convertable to function
+        try {
+          if (typeof eval(validation) !== 'function') throw new Error;
+        } catch (err) {
+          throw new Error('Validation must be convertable to function');
+        }
 
-      // verify validation returns boolean
-      if (typeof eval(validation)('random string') !== 'boolean')
-        throw new Error('Validation must return boolean');
+        if (eval(validation).length !== 1)
+          throw new Error('Validation must have a single argument');
+
+        // verify validation returns boolean
+        if (typeof eval(validation)('random string') !== 'boolean')
+          throw new Error('Validation must return boolean');
+      });
     });
   });
 };

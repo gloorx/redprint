@@ -9,8 +9,16 @@ export const toRedprint = (convertable: Convertable) => {
     const redprint = _.reduce(convertable, (redprint, model, modelName) => {
 
       // Iterate each property
-      const convertedModel = _.reduce(model, (convertedModel, validation, property) => {
-        _.set(convertedModel, property, validation.toString());
+      const convertedModel = _.reduce(model, (convertedModel, property, propertyName) => {
+
+        // Iterate each validation
+        const convertedProperty = _.reduce(property, (convertedProperty, validation, validationName) => {
+
+          _.set(convertedProperty, validationName, validation.toString());
+          return convertedProperty;
+        }, {});
+
+        _.set(convertedModel, propertyName, convertedProperty);
         return convertedModel;
       }, {});
 

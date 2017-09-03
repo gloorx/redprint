@@ -7,9 +7,16 @@ import { Redprint } from '../Redprint';
 export const validate = (key: string, input: any, filename?: string) => {
   const redprint = load(filename);
 
-  const validation = _.get(redprint, key);
-  if (typeof validation !== 'string')
+  // validate key
+  if (!key.match(/\w+\.\w+/))
     throw new Error('Invalid key');
 
-  return eval(validation)(input) as boolean;
+  const property = _.get(redprint, key);
+  _.each(property, (validation, validationName) => {
+    if (!eval(validation)(input))
+      // RedError design
+      throw new Error(`${key} cannot pass to validate '${validationName}'`);
+
+  });
+  return true;
 };
