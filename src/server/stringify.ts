@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Redprint, Convertable } from '../Redprint';
 
-export const toRedprint = (convertable: Convertable) => {
+export const stringify  = (convertable: Convertable): Redprint => {
   try {
 
     // Iterate each model

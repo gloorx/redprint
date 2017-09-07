@@ -5,10 +5,11 @@ import * as _ from 'lodash';
 
 import { debug } from './debug';
 import { store } from './store';
-import { toRedprint } from './toRedprint';
-import { red } from './red';
+import { stringify } from './stringify';
+import * as Red from './red';
+const { red } = Red;
 
-describe('[ toRedprint() ]', () => {
+describe('[ stringify() ]', () => {
   it('throws an Error if validation cannot convert to string', () => {
     const input: any = {
       Model: {
@@ -18,7 +19,7 @@ describe('[ toRedprint() ]', () => {
       }
     };
 
-    expect(() => { toRedprint(input); }).toThrow();
+    expect(() => { stringify(input); }).toThrow();
   });
 
 
@@ -31,7 +32,7 @@ describe('[ toRedprint() ]', () => {
       }
     };
 
-    expect(toRedprint(input)).toEqual({
+    expect(stringify(input)).toEqual({
       Model: {
         property: {
           validation: '() => true'
@@ -271,7 +272,11 @@ describe('[ red() ]', () => {
   it('stores redprint at custom location if filename input is exist', () => {
     mock();
     const input = {};
-    red(input, 'hello.json');
+
+    Red.setConfig({
+      filename: 'hello.json',
+    });
+    red(input);
     const data = fs.readJsonSync(path.join(process.cwd(), 'hello.json'));
 
     expect(data).toEqual({});
