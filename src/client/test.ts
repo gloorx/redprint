@@ -31,10 +31,10 @@ describe('[ validate() ]', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          property1: {
+          attribute1: {
             validation: 'input => true'
           },
-          property2: {
+          attribute2: {
             validation: 'input => false'
           }
         }
@@ -50,10 +50,10 @@ describe('[ validate() ]', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          property1: {
+          attribute1: {
             validation: 'input => true'
           },
-          property2: {
+          attribute2: {
             validation: 'input => false'
           }
         }
@@ -61,8 +61,8 @@ describe('[ validate() ]', () => {
     });
 
     const input = 'hello';
-    expect(() => { validate('Model.property2', input); }).toThrowError(
-      "Model.property2 cannot pass to validate 'validation'"
+    expect(() => { validate('Model.attribute2', input); }).toThrowError(
+      "Model.attribute2 cannot pass to validate 'validation'"
     );
   });
 
@@ -71,10 +71,10 @@ describe('[ validate() ]', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          property1: {
+          attribute1: {
             validation: 'input => true'
           },
-          property2: {
+          attribute2: {
             validation: 'input => false'
           }
         }
@@ -82,6 +82,6 @@ describe('[ validate() ]', () => {
     });
 
     const input = 'hello';
-    expect(validate('Model.property1', input)).toBeTruthy();
+    expect(validate('Model.attribute1', input)).toBeTruthy();
   });
 });

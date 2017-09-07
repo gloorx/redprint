@@ -11,8 +11,8 @@ export const validate = (key: string, input: any, filename?: string) => {
   if (!key.match(/\w+\.\w+/))
     throw new Error('Invalid key');
 
-  const property = _.get(redprint, key);
-  _.each(property, (validation, validationName) => {
+  const attribute = _.get(redprint, key);
+  _.each(attribute, (validation, validationName) => {
     if (!eval(validation)(input))
       // RedError design
       throw new Error(`${key} cannot pass to validate '${validationName}'`);

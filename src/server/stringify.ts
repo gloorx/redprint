@@ -8,17 +8,17 @@ export const stringify  = (convertable: Convertable): Redprint => {
     // Iterate each model
     const redprint = _.reduce(convertable, (redprint, model, modelName) => {
 
-      // Iterate each property
-      const convertedModel = _.reduce(model, (convertedModel, property, propertyName) => {
+      // Iterate each attribute
+      const convertedModel = _.reduce(model, (convertedModel, attribute, attributeName) => {
 
         // Iterate each validation
-        const convertedProperty = _.reduce(property, (convertedProperty, validation, validationName) => {
+        const convertedAttribute = _.reduce(attribute, (convertedAttribute, validation, validationName) => {
 
-          _.set(convertedProperty, validationName, validation.toString());
-          return convertedProperty;
+          _.set(convertedAttribute, validationName, validation.toString());
+          return convertedAttribute;
         }, {});
 
-        _.set(convertedModel, propertyName, convertedProperty);
+        _.set(convertedModel, attributeName, convertedAttribute);
         return convertedModel;
       }, {});
 

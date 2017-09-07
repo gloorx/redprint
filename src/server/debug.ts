@@ -13,12 +13,12 @@ export const debug = (redprint: Redprint) => {
     if (typeof model !== 'object')
       throw new Error('Model must be an object');
 
-    _.each(model, property => {
-      // verify property type
-      if (typeof property !== 'object')
-        throw new Error('Property must be an object');
+    _.each(model, attribute => {
+      // verify attribute type
+      if (typeof attribute !== 'object')
+        throw new Error('Attribute must be an object');
 
-      _.each(property, validation => {
+      _.each(attribute, validation => {
         // verify validation type
         if (typeof validation !== 'string')
           throw new Error('Validation must be a string');

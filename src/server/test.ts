@@ -13,7 +13,7 @@ describe('[ stringify() ]', () => {
   it('throws an Error if validation cannot convert to string', () => {
     const input: any = {
       Model: {
-        property: {
+        attribute: {
           validation: undefined
         }
       }
@@ -26,7 +26,7 @@ describe('[ stringify() ]', () => {
   it('convert input to redprint', () => {
     const input: any = {
       Model: {
-        property: {
+        attribute: {
           validation: () => true
         }
       }
@@ -34,7 +34,7 @@ describe('[ stringify() ]', () => {
 
     expect(stringify(input)).toEqual({
       Model: {
-        property: {
+        attribute: {
           validation: '() => true'
         }
       }
@@ -61,21 +61,21 @@ describe('[ debug() ]', () => {
   });
 
 
-  it('throws an Error if some properties are not object type', () => {
+  it('throws an Error if some attributes are not object type', () => {
     const redprint: any = {
       Model: {
-        property: 'Hello'
+        attribute: 'Hello'
       }
     };
 
-    expect(() => { debug(redprint); }).toThrowError('Property must be an object');
+    expect(() => { debug(redprint); }).toThrowError('Attribute must be an object');
   });
 
 
   it('throws an Error if some validations are not string type', () => {
     const redprint: any = {
       Model: {
-        property: {
+        attribute: {
           validation: 1
         }
       }
@@ -88,7 +88,7 @@ describe('[ debug() ]', () => {
   it('throws an Error if some validations are not convertable to function', () => {
     const redprint: any = {
       Model: {
-        property: {
+        attribute: {
           validation: '{}'
         }
       }
@@ -101,7 +101,7 @@ describe('[ debug() ]', () => {
   it('throws an Error if some validation has two or more arguments', () => {
     const redprint: any = {
       Model: {
-        property: {
+        attribute: {
           validation: '() => true'
         }
       }
@@ -114,7 +114,7 @@ describe('[ debug() ]', () => {
   it('throws an Error if some validations do not return boolean type', () => {
     const redprint: any = {
       Model: {
-        property: {
+        attribute: {
           validation: "(i) => 'Hello!'"
         }
       }
@@ -127,7 +127,7 @@ describe('[ debug() ]', () => {
   it('does not throw an Error', () => {
     const redprint: any = {
       Model: {
-        property: {
+        attribute: {
           validation: '(i) => true'
         }
       }
@@ -184,17 +184,17 @@ describe('[ store() ]', () => {
   });
 
 
-  it('adds a property if not exist', () => {
+  it('adds a attribute if not exist', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          property1: {}
+          attribute1: {}
         }
       })
     });
     const redprint = {
       Model: {
-        property2: {}
+        attribute2: {}
       }
     };
 
@@ -203,8 +203,8 @@ describe('[ store() ]', () => {
 
     expect(data).toEqual({
       Model: {
-        property1: {},
-        property2: {},
+        attribute1: {},
+        attribute2: {},
       }
     });
   });
@@ -214,7 +214,7 @@ describe('[ store() ]', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
-          property: {
+          attribute: {
             validation1: '() => true'
           }
         }
@@ -222,7 +222,7 @@ describe('[ store() ]', () => {
     });
     const redprint = {
       Model: {
-        property: {
+        attribute: {
           validation2: '() => true'
         }
       }
@@ -233,7 +233,7 @@ describe('[ store() ]', () => {
 
     expect(data).toEqual({
       Model: {
-        property: {
+        attribute: {
           validation1: '() => true',
           validation2: '() => true',
         }
