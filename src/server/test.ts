@@ -250,11 +250,18 @@ describe('[ red() ]', () => {
   });
 
 
-  it('returns input', () => {
+  it('returns the argument intactly if the argument is singular', () => {
     mock();
     const input = {};
 
     expect(red(input)).toEqual(input);
+  });
+
+  it('returns the arguments as array if the arguments is multiple', () => {
+    mock();
+    const input = [{}, {}, {}];
+
+    expect(red(...input)).toEqual(input);
   });
 
 

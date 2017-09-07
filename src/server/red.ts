@@ -1,37 +1,39 @@
-import { purify } from './purify';
 import { stringify } from './stringify';
 import { debug } from './debug';
 import { store } from './store';
 
-import { Convertable } from '../Redprint';
+import { Redprint, Convertable } from '../Redprint';
 
 interface RedprintConfig {
+  [key: string]: any;
   filename?: string;
-  purifier​?: Function;
+  purifier?: Function;
 }
 
 class Red {
   static config: RedprintConfig;
 
   constructor() {
-    Red.config = {};
+    Red.config = {
+      filename: 'redprint.json',
+      purifier: (validations: Redprint) => validations,
+    };
   }
 
-  red = (validations: any) => {
-    const { config } = Red;
-
-    const convertable = purify(validations, config.purifier​);
+  red = (...args: any[]) => {
+    const convertable: Convertable = Red.config.purifier(...args);
     const redprint = stringify(convertable);
     debug(redprint);
-    store(redprint, config.filename);
-    return convertable;
+    store(redprint, Red.config.filename);
+    return args.length == 1 ? args[0] : args;
   };
 
   setConfig = (config: RedprintConfig) => {
-    const { filename, purifier​ } = config;
+    const { filename, purifier } = config;
 
-    if (filename) Red.config.filename = filename;
-    if (purifier) Red.config.purifier = purifier;
+    Object.keys(config).forEach(key => {
+      Red.config[key] = config[key];
+    });
   };
 }
 
