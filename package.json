@@ -1,6 +1,6 @@
 {
   "name": "redprint",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "    ",
   "author": "Gloorx <glrx.vloq@gamil.com>",
   "license": "MIT",
@@ -19,8 +19,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "tsc",
-    "prepublish": "tsc"
+    "build": "rm -rf dist && tsc",
+    "prepublish": "rm -rf dist && tsc"
   },
   "devDependencies": {
     "@types/fs-extra": "^4.0.1",
