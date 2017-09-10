@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as _ from 'lodash';
 
 import { load } from './load';
+import { RedprintError } from './RedprintError';
 
 class Validator {
 
@@ -16,7 +17,7 @@ class Validator {
     _.each(attribute, (validation, validationName) => {
       if (!eval(validation)(input))
         // RedError design
-        throw new Error(`${key} cannot pass to validate '${validationName}'`);
+        throw new RedprintError(input, key, validationName);
 
     });
     return true;

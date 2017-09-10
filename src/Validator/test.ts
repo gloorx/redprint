@@ -56,7 +56,7 @@ describe('validate()', () => {
 
     const input = 'hello';
     expect(() => { validate('Model.attribute', input); }).toThrowError(
-      "Model.attribute cannot pass to validate 'validation'"
+      "'hello' is invalid Model.attribute for 'validation' validation"
     );
   });
 
