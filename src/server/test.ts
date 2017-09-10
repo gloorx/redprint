@@ -6,10 +6,9 @@ import * as _ from 'lodash';
 import { debug } from './debug';
 import { store } from './store';
 import { stringify } from './stringify';
-import * as Red from './red';
-const { red } = Red;
+import { red, getPurifier, setPurifier } from './red';
 
-describe('[ stringify() ]', () => {
+describe('stringify()', () => {
   it('throws an Error if validation cannot convert to string', () => {
     const input: any = {
       Model: {
@@ -44,7 +43,7 @@ describe('[ stringify() ]', () => {
 
 
 
-describe('[ debug() ]', () => {
+describe('debug()', () => {
   it('throws an Error if redprint is not object type', () => {
     const redprint: any = 'Hello!';
 
@@ -139,16 +138,11 @@ describe('[ debug() ]', () => {
 
 
 
-describe('[ store() ]', () => {
-  afterEach(() => {
-    mock.restore();
-  });
-
+describe('store()', () => {
+  afterEach(mock.restore);
 
   it('throws an Error if redprint.json is not valid', () => {
-    mock({
-      'redprint.json': 'Hello!',
-    });
+    mock({ 'redprint.json': 'Hello!' });
     const redprint = {};
 
     expect(() => { store(redprint); }).toThrow();
@@ -244,11 +238,8 @@ describe('[ store() ]', () => {
 
 
 
-describe('[ red() ]', () => {
-  afterEach(() => {
-    mock.restore();
-  });
-
+describe('red()', () => {
+  afterEach(mock.restore);
 
   it('returns the argument intactly if the argument is singular', () => {
     mock();
@@ -264,7 +255,6 @@ describe('[ red() ]', () => {
     expect(red(...input)).toEqual(input);
   });
 
-
   it('stores redprint at redprint.json', () => {
     mock();
     const input = {};
@@ -274,18 +264,22 @@ describe('[ red() ]', () => {
 
     expect(data).toEqual({});
   });
+});
 
 
-  it('stores redprint at custom location if filename input is exist', () => {
-    mock();
-    const input = {};
 
-    Red.setConfig({
-      filename: 'hello.json',
-    });
-    red(input);
-    const data = fs.readJsonSync(path.join(process.cwd(), 'hello.json'));
+describe('getPurifier()', () => {
+  it('returns a function', () => {
+    expect(typeof getPurifier()).toEqual('function');
+  });
+});
 
-    expect(data).toEqual({});
+
+
+describe('setPurifier()', () => {
+  it('sets a purifier', () => {
+    const purifier = () => {};
+    setPurifier(purifier);
+    expect(getPurifier()).toEqual(purifier);
   });
 });
