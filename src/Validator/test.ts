@@ -3,7 +3,7 @@ import * as mock from 'mock-fs';
 import * as path from 'path';
 
 import { load } from './load';
-import { validate } from './validate';
+import { validate } from '.';
 
 describe('load()', () => {
   afterEach(mock.restore);

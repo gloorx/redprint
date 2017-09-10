@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { debug } from './debug';
 import { store } from './store';
 import { stringify } from './stringify';
-import { red, getPurifier, setPurifier } from './red';
+import { red, getPurifier, setPurifier } from '.';
 
 describe('stringify()', () => {
   it('throws an Error if validation cannot convert to string', () => {
