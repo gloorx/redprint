@@ -1,21 +1,22 @@
 {
   "name": "redprint",
   "version": "0.1.0",
-  "description": "    ",
+  "description": "A tool for sharing validations",
+  "homepage": "https://github.com/gloorx/redprint",
   "author": "Gloorx <glrx.vloq@gamil.com>",
-  "license": "MIT",
+  "main": "dist/index.js",
   "keywords": [
-
+    "validation",
+    "validator",
+    "validate"
   ],
   "bugs": {
     "url": "https://github.com/gloorx/redprint/issues"
   },
-  "homepage": "https://github.com/gloorx/redprint",
   "repository": {
     "type": "git",
     "url": "https://github.com/gloorx/redprint.git"
   },
-  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -38,5 +39,6 @@
   "dependencies": {
     "fs-extra": "^4.0.1",
     "lodash": "^4.17.4"
-  }
+  },
+  "license": "MIT"
 }
