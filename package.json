@@ -40,5 +40,5 @@
     "fs-extra": "^4.0.1",
     "lodash": "^4.17.4"
   },
-  "license": "MIT"
+  "license": "Artistic-2.0"
 }
