@@ -278,7 +278,7 @@ describe('getPurifier()', () => {
 
 describe('setPurifier()', () => {
   it('sets a purifier', () => {
-    const purifier = () => {};
+    const purifier: any = () => {};
     setPurifier(purifier);
     expect(getPurifier()).toEqual(purifier);
   });
