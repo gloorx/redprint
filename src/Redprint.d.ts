@@ -17,3 +17,7 @@ export interface Convertable {
 export interface Validation {
   (input: string): boolean;
 }
+
+export interface Purifier {
+  (args?: any): Convertable;
+}

@@ -2,10 +2,10 @@ import { stringify } from './stringify';
 import { debug } from './debug';
 import { store } from './store';
 
-import { Redprint, Convertable } from '../Redprint';
+import { Redprint, Convertable, Purifier } from '../Redprint';
 
 class Red {
-  purifier: Function;
+  private purifier: Purifier;
 
   constructor() {
     this.purifier = (validations: Convertable) => validations;
@@ -21,7 +21,7 @@ class Red {
 
   getPurifier = () => this.purifier;
 
-  setPurifier = (purifier: Function) => {
+  setPurifier = (purifier: Purifier) => {
     this.purifier = purifier;
   }
 }
