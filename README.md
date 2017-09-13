@@ -3,11 +3,11 @@
 A tool for sharing validations
 
 ## Goal
-
 When developing a web application, there were 2 options for validating user input between API suppliers and consumers. A consumer can have validations on its own by refering API documents, or wait the result of validations from a API supplier. On the former, it cannot be ensured that consumer's validations works same with API supplier's. On the latter, there are limits to validate in real-time because of network latency.
 
-## Schema
+Redprint makes it possible to validate in real-time and manage validations at one place.
 
+## Schema
 For using Redprint, API validation must fit in `Redprint` schema.
 
 It shapes
@@ -39,7 +39,6 @@ For example, It can be like
 ```
 
 ## Install
-
 ```sh
 npm install redprint
 ```
@@ -47,7 +46,6 @@ npm install redprint
 ## Usage
 
 ### Supplier-side
-
 If your validation code is
 ```js
 const validation = {
@@ -74,7 +72,6 @@ const validation = red({
 Then run server. 'redprint.json' is generated in your project root. Provide this file for your API comsumers.
 
 ### Comsumer-side
-
 At first, locate 'redprint.json' provided from API supplier in your project root.
 
 ```js
@@ -89,3 +86,20 @@ try {
   // RedprintError: '' is invalid User.username for 'notEmpty' validation
 }
 ```
+
+## API
+
+### `red(redprint: Redprint)`
+Append `redprint` to 'redprint.json'.
+
+### `validate(key: string, input: any)`
+Validate `input` as the `key`, on the basis of 'redprint.json'.
+
+### `RedprintError`
+It is thrown if `validate()` failed.
+
+| Property       | Description                             |
+|----------------|-----------------------------------------|
+| input          | User input                              |
+| key            | What the input is for                   |
+| validationName | Which validation failed                 |
