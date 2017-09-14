@@ -43,7 +43,7 @@ describe('validate()', () => {
   });
 
 
-  it('throws an Error if input cannot pass some validation', () => {
+  it('throws an Error if the validation returns false', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {
@@ -60,7 +60,39 @@ describe('validate()', () => {
     );
   });
 
-  it('returns boolean', () => {
+  it('throws an Error if the validation throws an Error', () => {
+    mock({
+      'redprint.json': JSON.stringify({
+        Model: {
+          attribute: {
+            validation: 'input => { throw new Error(); }'
+          }
+        }
+      })
+    });
+
+    const input = 'hello';
+    expect(() => { validate('Model.attribute', input); }).toThrowError(
+      "'hello' is invalid Model.attribute for 'validation' validation"
+    );
+  });
+
+  it('returns true if the validation returns nothing', () => {
+    mock({
+      'redprint.json': JSON.stringify({
+        Mode: {
+          attribute: {
+            validation: 'input => {}'
+          }
+        }
+      })
+    });
+
+    const input = 'hello';
+    expect(validate('Model.attribute', input)).toBeTruthy();
+  });
+
+  it('returns true if the validation returns true', () => {
     mock({
       'redprint.json': JSON.stringify({
         Model: {

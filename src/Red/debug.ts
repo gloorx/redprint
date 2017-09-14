@@ -32,10 +32,6 @@ export const debug = (redprint: Redprint) => {
 
         if (eval(validation).length !== 1)
           throw new Error('Validation must have a single argument');
-
-        // verify validation returns boolean
-        if (typeof eval(validation)('random string') !== 'boolean')
-          throw new Error('Validation must return boolean');
       });
     });
   });

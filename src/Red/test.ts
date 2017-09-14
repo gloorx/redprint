@@ -110,19 +110,6 @@ describe('debug()', () => {
   });
 
 
-  it('throws an Error if some validations do not return boolean type', () => {
-    const redprint: any = {
-      Model: {
-        attribute: {
-          validation: "(i) => 'Hello!'"
-        }
-      }
-    };
-
-    expect(() => { debug(redprint); }).toThrowError('Validation must return boolean');
-  });
-
-
   it('does not throw an Error', () => {
     const redprint: any = {
       Model: {

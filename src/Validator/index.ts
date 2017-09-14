@@ -14,10 +14,17 @@ class Validator {
       throw new Error('Invalid key');
 
     const attribute = _.get(redprint, key);
-    _.each(attribute, (validation, validationName) => {
-      if (!eval(validation)(input))
-        // RedError design
-        throw new RedprintError(input, key, validationName);
+    _.each(attribute, (validationString, validationName) => {
+      const validation = eval(validationString);
+
+      try {
+        // if validation does not return true or nothing
+        // if validation throws an Error
+        if (!(validation(input) || typeof validation(input) === 'undefined'))
+          throw new Error();
+      } catch (err) {
+          throw new RedprintError(input, key, validationName);
+      }
 
     });
     return true;
